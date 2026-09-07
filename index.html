@@ -36,8 +36,9 @@
             display: flex;
         }
 
-        .card {
-            width: min(90%, 500px);
+        .card,
+        .question-box {
+            width: min(90%, 520px);
             padding: 40px 25px;
             border-radius: 30px;
             background: rgba(255,255,255,0.16);
@@ -45,6 +46,15 @@
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255,255,255,0.3);
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .question-box {
+            position: relative;
+            min-height: 330px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .heart {
@@ -96,33 +106,10 @@
             background: white;
             color: #e63963;
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            transition: 0.2s;
         }
 
         button:hover {
-            transform: scale(1.06);
-        }
-
-        .yes {
-            background: white;
-            color: #e63963;
-        }
-
-        .question-box {
-            position: relative;
-            width: min(90vw, 520px);
-            min-height: 330px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 35px 25px;
-            border-radius: 30px;
-            background: rgba(255,255,255,0.16);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            transform: scale(1.05);
         }
 
         .question-buttons {
@@ -133,11 +120,6 @@
             justify-content: center;
         }
 
-        /*
-           NO BUTTON
-           It starts near YES but can escape
-           around the box.
-        */
         #noLove {
             position: absolute;
             z-index: 9999;
@@ -155,10 +137,6 @@
         .final-heart {
             font-size: 90px;
             animation: beat 1s infinite;
-        }
-
-        .final-title {
-            margin-top: 15px;
         }
 
         .couple-names {
@@ -197,17 +175,12 @@
         }
 
         @media (max-width: 600px) {
-
             h1 {
                 font-size: 27px;
             }
 
             p {
                 font-size: 16px;
-            }
-
-            .question-box {
-                min-height: 310px;
             }
 
             .couple-names {
@@ -223,697 +196,673 @@
 
 <body>
 
-    <!-- =========================
-         SCREEN 1
-    ========================== -->
+<!-- NAME -->
+<section id="nameScreen" class="screen active">
+    <div class="card">
 
-    <section id="nameScreen" class="screen active">
+        <div class="heart">💖</div>
 
-        <div class="card">
+        <h1>Hey Beautiful! ❤️</h1>
 
-            <div class="heart">💖</div>
-
-            <h1>Hey Beautiful! ❤️</h1>
-
-            <p>
-                Before we continue...
-                <br>
-                Tell me your name 😊
-            </p>
-
-            <input
-                type="text"
-                id="nameInput"
-                placeholder="Enter your name..."
-                autocomplete="off"
-            >
-
+        <p>
+            Before we continue...
             <br>
+            Tell me your name 😊
+        </p>
 
-            <button onclick="startLove()">
-                Continue ❤️
+        <input
+            type="text"
+            id="nameInput"
+            placeholder="Enter your name..."
+            autocomplete="off"
+        >
+
+        <br>
+
+        <button onclick="startLove()">
+            Continue ❤️
+        </button>
+
+    </div>
+</section>
+
+
+<!-- HELLO -->
+<section id="helloScreen" class="screen">
+    <div class="card">
+
+        <div class="heart">🥰</div>
+
+        <h1 id="helloText">
+            Hello!
+        </h1>
+
+        <p>
+            I have something important to tell you...
+            ❤️
+        </p>
+
+        <button class="small-btn" onclick="showLove()">
+            Continue 💕
+        </button>
+
+    </div>
+</section>
+
+
+<!-- LOVE -->
+<section id="loveScreen" class="screen">
+    <div class="card">
+
+        <div class="heart">❤️</div>
+
+        <h1>I Love You</h1>
+
+        <p style="font-size:25px;">
+            তোমাকে ভালোবাসি ❤️
+        </p>
+
+        <p style="margin-top:20px;">
+            More than words can ever explain. 🥹💕
+        </p>
+
+        <button class="small-btn" onclick="showQuestion1()">
+            Continue ❤️
+        </button>
+
+    </div>
+</section>
+
+
+<!-- QUESTION 1 -->
+<section id="question1" class="screen">
+    <div class="question-box">
+
+        <div class="heart" style="font-size:60px;">
+            💕
+        </div>
+
+        <h1>
+            Do You Love Me?
+        </h1>
+
+        <p>
+            Be honest... 🥺❤️
+        </p>
+
+        <div class="question-buttons">
+
+            <button onclick="loveAnswer('YES')">
+                YES ❤️
+            </button>
+
+            <button
+                id="noLove"
+                onpointerenter="escapeNo(event)"
+                ontouchstart="escapeNo(event)"
+                onmousedown="escapeNo(event)"
+                onfocus="escapeNo(event)"
+            >
+                NO 😢
             </button>
 
         </div>
 
-    </section>
+    </div>
+</section>
 
 
-    <!-- =========================
-         SCREEN 2
-    ========================== -->
+<!-- QUESTION 2 -->
+<section id="question2" class="screen">
+    <div class="question-box">
 
-    <section id="helloScreen" class="screen">
+        <div class="heart" style="font-size:60px;">
+            🥺❤️
+        </div>
 
-        <div class="card">
+        <h1>
+            Will You Stay By My Side Forever?
+        </h1>
 
-            <div class="heart">🥰</div>
+        <p id="thinkAgainText">
+            Through everything? 💕
+        </p>
 
-            <h1 id="helloText">
-                Hello!
-            </h1>
+        <div class="question-buttons">
 
-            <p>
-                I have something important to tell you...
+            <button onclick="foreverAnswer('YES')">
+                YES ❤️
+            </button>
+
+            <button onclick="thinkAgain()">
+                NO 😢
+            </button>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- MARRIAGE -->
+<section id="marriageScreen" class="screen">
+    <div class="card">
+
+        <div class="heart">
+            💍❤️
+        </div>
+
+        <h1>
+            Will You Marry Me?
+        </h1>
+
+        <p>
+            And make this journey beautiful forever? 🥹
+        </p>
+
+        <div class="question-buttons">
+
+            <button onclick="marriageAnswer('YES')">
+                YES ❤️
+            </button>
+
+            <button onclick="marriageAnswer('OBVIOUSLY')">
+                OBVIOUSLY! 😍
+            </button>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- FINAL -->
+<section id="finalScreen" class="screen">
+    <div class="card">
+
+        <div class="final-heart">
+            💖
+        </div>
+
+        <h1>
+            You Said YES! 🥹❤️
+        </h1>
+
+        <div class="couple-names">
+
+            <span id="finalGirlName">
+                Her Name
+            </span>
+
+            <span class="heart-between">
                 ❤️
-            </p>
+            </span>
 
-            <button class="small-btn" onclick="showLove()">
-                Continue 💕
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         SCREEN 3
-    ========================== -->
-
-    <section id="loveScreen" class="screen">
-
-        <div class="card">
-
-            <div class="heart">❤️</div>
-
-            <h1>I Love You</h1>
-
-            <p style="font-size:25px;">
-                তোমাকে ভালোবাসি ❤️
-            </p>
-
-            <p style="margin-top:20px;">
-                More than words can ever explain. 🥹💕
-            </p>
-
-            <button class="small-btn" onclick="showQuestion1()">
-                Continue ❤️
-            </button>
+            <span>
+                Aniruddha Sarker
+            </span>
 
         </div>
 
-    </section>
-
-
-    <!-- =========================
-         SCREEN 4
-         DO YOU LOVE ME?
-    ========================== -->
-
-    <section id="question1" class="screen">
-
-        <div class="question-box">
-
-            <div class="heart" style="font-size:60px;">
-                💕
-            </div>
-
-            <h1>
-                Do You Love Me?
-            </h1>
-
-            <p>
-                Be honest... 🥺❤️
-            </p>
-
-            <div class="question-buttons">
-
-                <button
-                    class="yes"
-                    onclick="showQuestion2()"
-                >
-                    YES ❤️
-                </button>
-
-                <button
-                    id="noLove"
-                    onpointerenter="escapeNo(event)"
-                    ontouchstart="escapeNo(event)"
-                    onmousedown="escapeNo(event)"
-                    onfocus="escapeNo(event)"
-                >
-                    NO 😢
-                </button>
-
-            </div>
-
+        <div class="forever">
+            Forever & Always ♾️❤️
         </div>
 
-    </section>
+        <p class="final-message">
+            Two hearts, one beautiful journey. 💕
+            <br><br>
+            Let's keep creating beautiful memories together. ❤️
+        </p>
 
-
-    <!-- =========================
-         SCREEN 5
-    ========================== -->
-
-    <section id="question2" class="screen">
-
-        <div class="question-box">
-
-            <div class="heart" style="font-size:60px;">
-                🥺❤️
-            </div>
-
-            <h1>
-                Will You Stay By My Side Forever?
-            </h1>
-
-            <p id="thinkAgainText">
-                Through everything? 💕
-            </p>
-
-            <div class="question-buttons">
-
-                <button
-                    class="yes"
-                    onclick="showMarriage()"
-                >
-                    YES ❤️
-                </button>
-
-                <button
-                    id="noForever"
-                    onclick="thinkAgain()"
-                >
-                    NO 😢
-                </button>
-
-            </div>
-
+        <div class="signature">
+            With Love,
+            <br>
+            Aniruddha Sarker ❤️
         </div>
 
-    </section>
+    </div>
+</section>
 
 
-    <!-- =========================
-         SCREEN 6
-    ========================== -->
+<!-- FIREBASE + JAVASCRIPT -->
 
-    <section id="marriageScreen" class="screen">
+<script type="module">
 
-        <div class="card">
+    import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-            <div class="heart">
-                💍❤️
-            </div>
+    import {
+        getFirestore,
+        collection,
+        addDoc,
+        serverTimestamp
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-            <h1>
-                Will You Marry Me?
-            </h1>
 
-            <p>
-                And make this journey beautiful forever? 🥹
-            </p>
+    /* ==================================
+       YOUR FIREBASE CONFIG
+       ================================== */
 
-            <div class="question-buttons">
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAJrV40oD1CRSruvTNVj7bqPRzRhEYnUfI",
+  authDomain: "love-proposal-afbdb.firebaseapp.com",
+  projectId: "love-proposal-afbdb",
+  storageBucket: "love-proposal-afbdb.firebasestorage.app",
+  messagingSenderId: "261917642609",
+  appId: "1:261917642609:web:eb2a8679c9f6890b89b0d0",
+  measurementId: "G-02YW5PL898"
+};
 
-                <button
-                    class="yes"
-                    onclick="showFinal()"
-                >
-                    YES ❤️
-                </button>
 
-                <button
-                    class="yes"
-                    onclick="showFinal()"
-                >
-                    OBVIOUSLY! 😍
-                </button>
+    /* ==================================
+       INITIALIZE FIREBASE
+       ================================== */
 
-            </div>
+    const app =
+        initializeApp(firebaseConfig);
 
-        </div>
+    const db =
+        getFirestore(app);
 
-    </section>
 
+    /* ==================================
+       USER DATA
+       ================================== */
 
-    <!-- =========================
-         FINAL SCREEN
-    ========================== -->
+    let girlName = "";
 
-    <section id="finalScreen" class="screen">
+    let proposalData = {
 
-        <div class="card">
+        girlName: "",
 
-            <div class="final-heart">
-                💖
-            </div>
+        loveAnswer: "",
 
-            <h1 class="final-title">
-                You Said YES! 🥹❤️
-            </h1>
+        foreverAnswer: "",
 
-            <div class="couple-names">
+        marriageAnswer: ""
 
-                <span id="finalGirlName">
-                    Her Name
-                </span>
+    };
 
-                <span class="heart-between">
-                    ❤️
-                </span>
 
-                <span>
-                    Aniruddha Sarker
-                </span>
+    /* ==================================
+       SCREEN FUNCTION
+       ================================== */
 
-            </div>
-
-            <div class="forever">
-                Forever & Always ♾️❤️
-            </div>
-
-            <p class="final-message">
-
-                Two hearts, one beautiful journey. 💕
-
-                <br><br>
-
-                Let's keep creating beautiful
-                memories together. ❤️
-
-            </p>
-
-            <div class="signature">
-
-                With Love,
-
-                <br>
-
-                Aniruddha Sarker ❤️
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <script>
-
-        /* =========================
-           CONSTANT NAME
-        ========================== */
-
-        const MY_NAME = "Aniruddha Sarker";
-
-        let girlName = "";
-
-
-        /* =========================
-           SCREEN CONTROL
-        ========================== */
-
-        function showScreen(id) {
-
-            document
-                .querySelectorAll(".screen")
-                .forEach(screen => {
-
-                    screen.classList.remove("active");
-
-                });
-
-            document
-                .getElementById(id)
-                .classList.add("active");
-        }
-
-
-        /* =========================
-           NAME
-        ========================== */
-
-        function startLove() {
-
-            const input =
-                document.getElementById("nameInput");
-
-            girlName =
-                input.value.trim();
-
-            if (girlName === "") {
-
-                alert("Please enter your name ❤️");
-
-                return;
-            }
-
-            document
-                .getElementById("helloText")
-                .textContent =
-                "Hello, " + girlName + " ❤️";
-
-            showScreen("helloScreen");
-        }
-
-
-        /* =========================
-           LOVE SCREEN
-        ========================== */
-
-        function showLove() {
-
-            showScreen("loveScreen");
-
-        }
-
-
-        /* =========================
-           QUESTION 1
-        ========================== */
-
-        function showQuestion1() {
-
-            showScreen("question1");
-
-            /*
-               Reset NO position when screen opens
-            */
-
-            const noButton =
-                document.getElementById("noLove");
-
-            noButton.style.left = "58%";
-            noButton.style.top = "67%";
-            noButton.style.transform =
-                "translate(-50%, -50%)";
-        }
-
-
-        /* =========================
-           NO BUTTON ESCAPE
-           
-           2X OUTSIDE BOX
-        ========================== */
-
-        function escapeNo(event) {
-
-            if (event) {
-                event.preventDefault();
-            }
-
-            const button =
-                document.getElementById("noLove");
-
-            const box =
-                document.querySelector("#question1 .question-box");
-
-            const boxRect =
-                box.getBoundingClientRect();
-
-            const buttonRect =
-                button.getBoundingClientRect();
-
-            const buttonWidth =
-                buttonRect.width;
-
-            const buttonHeight =
-                buttonRect.height;
-
-
-            /*
-               Current outside distance:
-               100px
-
-               This is approximately 2X
-               the earlier 50px setting.
-            */
-
-            const extra = 100;
-
-
-            /*
-               Allowed movement area
-               around the question box
-            */
-
-            const minX =
-                boxRect.left - extra;
-
-            const maxX =
-                boxRect.right + extra - buttonWidth;
-
-            const minY =
-                boxRect.top - extra;
-
-            const maxY =
-                boxRect.bottom + extra - buttonHeight;
-
-
-            let newX;
-            let newY;
-
-            let attempts = 0;
-
-
-            /*
-               Make sure the button actually
-               moves a reasonable distance.
-            */
-
-            do {
-
-                newX =
-                    minX +
-                    Math.random() *
-                    (maxX - minX);
-
-                newY =
-                    minY +
-                    Math.random() *
-                    (maxY - minY);
-
-                attempts++;
-
-            } while (
-
-                Math.sqrt(
-
-                    Math.pow(
-                        newX - buttonRect.left,
-                        2
-                    )
-
-                    +
-
-                    Math.pow(
-                        newY - buttonRect.top,
-                        2
-                    )
-
-                ) < 100
-
-                &&
-
-                attempts < 80
-            );
-
-
-            /*
-               Keep NO button inside
-               the phone/browser screen.
-            */
-
-            newX =
-                Math.max(
-                    10,
-                    Math.min(
-                        newX,
-                        window.innerWidth -
-                        buttonWidth -
-                        10
-                    )
-                );
-
-
-            newY =
-                Math.max(
-                    10,
-                    Math.min(
-                        newY,
-                        window.innerHeight -
-                        buttonHeight -
-                        10
-                    )
-                );
-
-
-            /*
-               Apply new position
-            */
-
-            button.style.position =
-                "fixed";
-
-            button.style.left =
-                newX + "px";
-
-            button.style.top =
-                newY + "px";
-
-
-            /*
-               Small random rotation
-            */
-
-            const rotation =
-                Math.random() * 8 - 4;
-
-            button.style.transform =
-                "rotate(" +
-                rotation +
-                "deg)";
-        }
-
-
-        /* =========================
-           QUESTION 2
-        ========================== */
-
-        function showQuestion2() {
-
-            showScreen("question2");
-
-        }
-
-
-        /* =========================
-           THINK AGAIN
-        ========================== */
-
-        function thinkAgain() {
-
-            const text =
-                document.getElementById(
-                    "thinkAgainText"
-                );
-
-            text.innerHTML =
-                "Think again... 🥺❤️<br><br>" +
-                "I really want you by my side forever. 💕";
-
-        }
-
-
-        /* =========================
-           MARRIAGE
-        ========================== */
-
-        function showMarriage() {
-
-            showScreen("marriageScreen");
-
-        }
-
-
-        /* =========================
-           FINAL
-        ========================== */
-
-        function showFinal() {
-
-            document
-                .getElementById("finalGirlName")
-                .textContent =
-                girlName;
-
-            showScreen("finalScreen");
-
-        }
-
-
-        /* =========================
-           ENTER KEY
-        ========================== */
+    window.showScreen = function(id) {
 
         document
-            .getElementById("nameInput")
-            .addEventListener(
-                "keydown",
-                function(event) {
+            .querySelectorAll(".screen")
+            .forEach(screen => {
 
-                    if (event.key === "Enter") {
+                screen.classList.remove("active");
 
-                        startLove();
+            });
 
-                    }
+        document
+            .getElementById(id)
+            .classList.add("active");
 
-                }
+    };
+
+
+    /* ==================================
+       NAME
+       ================================== */
+
+    window.startLove = function() {
+
+        const input =
+            document.getElementById("nameInput");
+
+        girlName =
+            input.value.trim();
+
+        if (!girlName) {
+
+            alert("Please enter your name ❤️");
+
+            return;
+
+        }
+
+        proposalData.girlName =
+            girlName;
+
+        document
+            .getElementById("helloText")
+            .textContent =
+            "Hello, " + girlName + " ❤️";
+
+        showScreen("helloScreen");
+
+    };
+
+
+    /* ==================================
+       LOVE
+       ================================== */
+
+    window.showLove = function() {
+
+        showScreen("loveScreen");
+
+    };
+
+
+    /* ==================================
+       QUESTION 1
+       ================================== */
+
+    window.showQuestion1 = function() {
+
+        showScreen("question1");
+
+        const noButton =
+            document.getElementById("noLove");
+
+        noButton.style.position =
+            "absolute";
+
+        noButton.style.left =
+            "58%";
+
+        noButton.style.top =
+            "67%";
+
+        noButton.style.transform =
+            "translate(-50%, -50%)";
+
+    };
+
+
+    /* ==================================
+       YES LOVE
+       ================================== */
+
+    window.loveAnswer = function(answer) {
+
+        proposalData.loveAnswer =
+            answer;
+
+        showScreen("question2");
+
+    };
+
+
+    /* ==================================
+       NO BUTTON ESCAPE
+       ================================== */
+
+    window.escapeNo = function(event) {
+
+        if (event) {
+            event.preventDefault();
+        }
+
+        const button =
+            document.getElementById("noLove");
+
+        const box =
+            document.querySelector(
+                "#question1 .question-box"
+            );
+
+        const boxRect =
+            box.getBoundingClientRect();
+
+        const buttonRect =
+            button.getBoundingClientRect();
+
+        const buttonWidth =
+            buttonRect.width;
+
+        const buttonHeight =
+            buttonRect.height;
+
+
+        /*
+           100px outside the card.
+        */
+
+        const extra = 100;
+
+
+        const minX =
+            boxRect.left - extra;
+
+        const maxX =
+            boxRect.right +
+            extra -
+            buttonWidth;
+
+        const minY =
+            boxRect.top - extra;
+
+        const maxY =
+            boxRect.bottom +
+            extra -
+            buttonHeight;
+
+
+        let newX;
+        let newY;
+
+        let attempts = 0;
+
+
+        do {
+
+            newX =
+                minX +
+                Math.random() *
+                (maxX - minX);
+
+            newY =
+                minY +
+                Math.random() *
+                (maxY - minY);
+
+            attempts++;
+
+        } while (
+
+            Math.sqrt(
+
+                Math.pow(
+                    newX - buttonRect.left,
+                    2
+                )
+
+                +
+
+                Math.pow(
+                    newY - buttonRect.top,
+                    2
+                )
+
+            ) < 100
+
+            &&
+
+            attempts < 80
+        );
+
+
+        /*
+           Keep button inside screen.
+        */
+
+        newX =
+            Math.max(
+                10,
+                Math.min(
+                    newX,
+                    window.innerWidth -
+                    buttonWidth -
+                    10
+                )
             );
 
 
-        /* =========================
-           EXTRA TOUCH PROTECTION
-        ========================== */
-
-        window.addEventListener(
-            "resize",
-            function() {
-
-                const button =
-                    document.getElementById("noLove");
-
-                /*
-                   Only adjust if it has already
-                   escaped from the box.
-                */
-
-                if (
-                    button &&
-                    button.style.position === "fixed"
-                ) {
-
-                    const rect =
-                        button.getBoundingClientRect();
-
-                    const width =
-                        rect.width;
-
-                    const height =
-                        rect.height;
+        newY =
+            Math.max(
+                10,
+                Math.min(
+                    newY,
+                    window.innerHeight -
+                    buttonHeight -
+                    10
+                )
+            );
 
 
-                    let x = rect.left;
-                    let y = rect.top;
+        button.style.position =
+            "fixed";
+
+        button.style.left =
+            newX + "px";
+
+        button.style.top =
+            newY + "px";
 
 
-                    x = Math.max(
-                        10,
-                        Math.min(
-                            x,
-                            window.innerWidth -
-                            width -
-                            10
-                        )
-                    );
+        const rotation =
+            Math.random() * 8 - 4;
+
+        button.style.transform =
+            "rotate(" +
+            rotation +
+            "deg)";
+
+    };
 
 
-                    y = Math.max(
-                        10,
-                        Math.min(
-                            y,
-                            window.innerHeight -
-                            height -
-                            10
-                        )
-                    );
+    /* ==================================
+       QUESTION 2
+       ================================== */
+
+    window.foreverAnswer = function(answer) {
+
+        proposalData.foreverAnswer =
+            answer;
+
+        showScreen("marriageScreen");
+
+    };
 
 
-                    button.style.left =
-                        x + "px";
+    /* ==================================
+       THINK AGAIN
+       ================================== */
 
-                    button.style.top =
-                        y + "px";
+    window.thinkAgain = function() {
+
+        document
+            .getElementById("thinkAgainText")
+            .innerHTML =
+            "Think again... 🥺❤️<br><br>" +
+            "I really want you by my side forever. 💕";
+
+    };
+
+
+    /* ==================================
+       MARRIAGE ANSWER
+       ================================== */
+
+    window.marriageAnswer = async function(answer) {
+
+        proposalData.marriageAnswer =
+            answer;
+
+        await saveResponse();
+
+        document
+            .getElementById("finalGirlName")
+            .textContent =
+            girlName;
+
+        showScreen("finalScreen");
+
+    };
+
+
+    /* ==================================
+       SAVE TO FIRESTORE
+       ================================== */
+
+    async function saveResponse() {
+
+        try {
+
+            await addDoc(
+
+                collection(
+                    db,
+                    "proposalResponses"
+                ),
+
+                {
+
+                    girlName:
+                        proposalData.girlName,
+
+                    loveAnswer:
+                        proposalData.loveAnswer,
+
+                    foreverAnswer:
+                        proposalData.foreverAnswer,
+
+                    marriageAnswer:
+                        proposalData.marriageAnswer,
+
+                    createdAt:
+                        serverTimestamp()
+
+                }
+
+            );
+
+            console.log(
+                "Response saved successfully."
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Firebase error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* ==================================
+       ENTER KEY
+       ================================== */
+
+    document
+        .getElementById("nameInput")
+        .addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Enter") {
+
+                    startLove();
+
                 }
 
             }
         );
 
-    </script>
+</script>
 
 </body>
 </html>
